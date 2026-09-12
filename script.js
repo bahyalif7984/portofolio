@@ -211,3 +211,35 @@ document.querySelectorAll('iframe[data-drive-file-id]').forEach((frame) => {
     video.addEventListener('play', () => pauseOthers(video));
   });
 })();
+
+
+/* V18 portrait fullscreen handler */
+function openPortraitFullscreen(video){
+    const screen = video.closest(".local-video-screen");
+    if(!screen) return;
+
+    screen.classList.add("fullscreen-mode");
+
+    if(screen.requestFullscreen){
+        screen.requestFullscreen();
+    }
+}
+
+function closePortraitFullscreen(video){
+    const screen = video.closest(".local-video-screen");
+    if(screen){
+        screen.classList.remove("fullscreen-mode");
+    }
+
+    if(document.fullscreenElement){
+        document.exitFullscreen();
+    }
+}
+
+document.addEventListener("fullscreenchange", function(){
+    document.querySelectorAll(".local-video-screen").forEach(function(el){
+        if(!document.fullscreenElement){
+            el.classList.remove("fullscreen-mode");
+        }
+    });
+});
