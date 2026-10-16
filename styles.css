@@ -1361,3 +1361,38 @@ dialog.portfolio-video-modal[open] .portfolio-video-modal-frame iframe{
     object-fit:contain !important;
     background:#000 !important;
 }
+
+/* =========================================================
+   V19 — DESKTOP VIDEO PREVIEW: FIT THE WHOLE FRAME (NO CROP)
+   The phone-shaped shell keeps its 9:16 shape. The video
+   itself is NOT forced to 9:16: display its real aspect ratio
+   inside the shell, with black bars if necessary.
+   Mobile and the existing fullscreen behavior stay unchanged.
+   ========================================================= */
+@media (min-width:901px){
+  .local-video-screen:not(.fullscreen-mode){
+    position:relative !important;
+    isolation:isolate;
+    overflow:hidden !important;
+    background:#000 !important;
+  }
+
+  .local-video-screen:not(.fullscreen-mode) > video.local-portfolio-video{
+    position:absolute !important;
+    inset:0 !important;
+    display:block !important;
+    width:100% !important;
+    height:100% !important;
+    min-width:0 !important;
+    min-height:0 !important;
+    max-width:100% !important;
+    max-height:100% !important;
+    aspect-ratio:auto !important;
+    object-fit:contain !important;
+    object-position:center center !important;
+    transform:none !important;
+    margin:0 !important;
+    padding:0 !important;
+    background:#000 !important;
+  }
+}
