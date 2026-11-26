@@ -173,6 +173,8 @@ document.querySelectorAll('iframe[data-drive-file-id]').forEach((frame) => {
 // MP4 files are NOT requested on initial page load. The source is attached only after Play is clicked.
 (() => {
   const videos = Array.from(document.querySelectorAll('.local-portfolio-video'));
+  const media = {"p1": "YXNzZXRzL3ZpZGVvcy9Kb3NqaXMubXA0", "p2": "YXNzZXRzL3ZpZGVvcy9wb3N0aW5nMi5tcDQ=", "p3": "YXNzZXRzL3ZpZGVvcy9hZmZpbGlhdGUtMTA4MHAtd2ViLm1wNA==", "p4": "YXNzZXRzL3ZpZGVvcy9maW5hbC0xMDgwcC13ZWIubXA0", "p5": "YXNzZXRzL3ZpZGVvcy9oZWFsdGgtMTA4MHAtd2ViLm1wNA=="};
+  videos.forEach(video => video.addEventListener("contextmenu", event => event.preventDefault()));
 
   const pauseOthers = (current) => {
     videos.forEach((video) => {
@@ -189,7 +191,9 @@ document.querySelectorAll('iframe[data-drive-file-id]').forEach((frame) => {
       pauseOthers(video);
 
       if (!video.dataset.loaded) {
-        video.src = video.dataset.src;
+        const source = media[video.dataset.videoId];
+        if (!source) return;
+        video.src = atob(source);
         video.controls = true;
         video.dataset.loaded = 'true';
         video.load();
